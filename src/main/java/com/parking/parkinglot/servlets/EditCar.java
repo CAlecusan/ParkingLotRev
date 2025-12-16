@@ -25,11 +25,23 @@ public class EditCar extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<UserDto> users = usersBean.findAllUsers();
+        request.setAttribute("users", users);
 
-        Long carId = Long.parseLong(request.getParameter("Id"));
+        Long carId = Long.parseLong(request.getParameter("id"));
         CarDto car = carsBean.findById(carId);
        request.setAttribute("car", car);
 
         request.getRequestDispatcher("/WEB-INF/pages/editCar.jsp").forward(request,response);
+    }
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String licensePlate = request.getParameter("license_plate");
+        String parkinSpot = request.getParameter("parking_spot");
+        Long userId = Long.parseLong(request.getParameter("owner_id"));
+        Long carId = Long.parseLong(request.getParameter("car_id"));
+
+        carsBean.updateCar(carId, licensePlate, parkinSpot, userId);
+
+        response.sendRedirect(request.getContextPath() + "/Cars");
     }
 }
