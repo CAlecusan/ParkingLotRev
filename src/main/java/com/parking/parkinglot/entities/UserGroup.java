@@ -8,6 +8,9 @@ public class UserGroup {
     @Column(name = "user_group")
     private String userGroup;
 
+    @Column(name = "filename")
+    private String filename;
+
     @Column(name = "username")
     private String username;
 
@@ -15,6 +18,14 @@ public class UserGroup {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
     private Long id;
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
 
     public String getUserGroup() {
         return userGroup;
